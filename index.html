@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <title>Doble Click Detector</title>
+    <meta charset="utf-8"/ name="viewport" content="width=device-width, user-sxalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="assets/icono.png">
+    </head>
+    <body onmousedown="mouseClick();" oncontextmenu="return false;">
+        <!-- HTML -->
+        <h1>Doble Click Detector</h1>
+        
+        <div class="box">
+        <div id="click" class="click">
+            <div class="cosas">
+        <p>Clicks:  <input id="count" type="text" value="0" size="4" readonly> </p>
+            
+            
+                <p>Cantidad de Doble Click detectados:  <input id="dcCount" type="text" value="0" size="4" readonly> </p>
+            <br/>
+            <textarea id="textarea"></textarea>
+                <br/>
+                <button id="reset">Reiniciar</button>
+            </div>
+        </div>
+    
+        </div>
+        <br/>
+        <div class="redes-sociales">
+        
+        <h3>Mas Informacion:</h3>
+    
+        <a class="youtube-button" href="https://www.youtube.com/@Criperto_Oficial" target="_blank">
+    <i class="fab fa-youtube"></i> Youtube
+  </a>
+        <a class="discord-button" href="https://discord.com/invite/ZXJEb6bfhB" target="_blank">
+    <i class="fab fa-discord"></i> Discord
+  </a>
+        <a class="github-button" href="https://github.com/Criperto" target="_blank">
+    <i class="fab fa-github"></i> GitHub
+  </a>
+        <a class="more-button" href="https://criperto.github.io/Criperto/" target="_blank">
+    <i class="fas fa-info"></i> Criperto
+  </a>
+    
+        
+        <h3>Esta pagina fue creada por Criperto.</h3>
+    </div>
+        
+        <!-- codigo -->
+        <script>
+    var click = document.getElementById('click');
+var textarea = document.getElementById('textarea');
+var clicks = document.getElementById('count');
+var dcCount = document.getElementById('dcCount');
+var reset = document.getElementById('reset');
+reset.onclick = function() {
+  clicks.value = 0;
+  dcCount.value = 0;
+  textarea.value = '';
+  click.style.background = 'green';
+}
+
+var prevClickMicrotime = microtime(true);
+function microtime(get_as_float) {
+  
+
+  var now = new Date()
+    .getTime() / 1000;
+  var s = parseInt(now, 10);
+
+  return (get_as_float) ? now : (Math.round((now - s) * 1000) / 1000) + ' ' + s;
+}
+
+var prevClickMicrotime = microtime(true);
+
+function clickEvent() {
+	clickTime = microtime(true);
+  diff = clickTime - prevClickMicrotime;
+  if(diff <= 0.08) {
+    click.style.background = 'red';
+    dcCount.value++;
+  }
+  textarea.value = diff + "\n" + textarea.value;
+  prevClickMicrotime = clickTime;
+  clicks.value++;  
+}
+
+function mouseClick() {
+    var e = window.event;
+  	console.log(e);
+  	clickEvent();
+    return false;
+}
+
+//mouseClick();
+            
+            // Verifica el ancho de la pantalla al cargar la página
+    window.onload = function() {
+      redirigirSiEsNecesario();
+
+      // También puedes agregar un listener para el evento de cambio de tamaño de la pantalla
+      window.addEventListener('resize', redirigirSiEsNecesario);
+    };
+
+    function redirigirSiEsNecesario() {
+      // Obtén el ancho actual de la pantalla
+      var anchoPantalla = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+      // Define el umbral para el redireccionamiento
+      var umbralAncho = 767;
+
+      // Si el ancho de la pantalla es menor que el umbral, redirige a otra página
+      if (anchoPantalla <= umbralAncho) {
+        window.location.href = 'https://criperto.github.io/404/';
+      }
+    }
+        
+        
+        
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    </body>
+</html>
